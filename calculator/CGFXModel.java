@@ -22,7 +22,6 @@ public class CGFXModel
 	private Icon[] icon;
 	private int bWidth;
 	private int bHeight;
-	private File file;
 	private ImageIcon normalBG;
 	private ImageIcon advancedBG;
 
@@ -53,30 +52,26 @@ public class CGFXModel
 	}
 
 	private void importGraphics(){
-		log("importGraphics()");
+		File file;
+		try {
+			file = new File(PATH + "BG_normal.png");			log(PATH+"BG_normal.png");
+			normalBG = new ImageIcon(ImageIO.read(file));
+			file = new File(PATH + "BG_advanced.png");			log(PATH+"BG_advanced.png");
+			advancedBG = new ImageIcon(ImageIO.read(file));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		for (int i = 0; i < NUMBER_OF_ICONS; i++){
-
 			if (i < 10){
-				file = new File(ICONS + "0" + i + ".png");	log(ICONS + "0" + i + ".png");
+				file = new File(ICONS + "0" + i + ".png");		log(ICONS+"0"+i+".png");
 			} else {
-				file = new File(ICONS + i + ".png");		log(ICONS + i + ".png");
+				file = new File(ICONS + i + ".png");			log(ICONS+i+".png");
 			}
-
 			try {
 				icon[i] = new ImageIcon(ImageIO.read(file));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
-		try {
-			file = new File(PATH + "BG_normal.png");	log(PATH + "BG_normal.png");
-			normalBG = new ImageIcon(ImageIO.read(file));
-
-			file = new File(PATH + "BG_advanced.png");	log(PATH + "BG_advanced.png");
-			advancedBG = new ImageIcon(ImageIO.read(file));
-
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -85,8 +80,8 @@ public class CGFXModel
 			button[i] = new JButton(icon[i]);
 			button[i].setSize(new Dimension(bWidth, bHeight));
 			button[i].setBorder(BorderFactory.createEmptyBorder());
-//			buttonPanel.add(button[i]);
 //			button[i].addActionListener(this);
+//			buttonPanel.add(button[i]);
 		}
 	}
 
@@ -98,7 +93,6 @@ public class CGFXModel
 		CGFXModel gfx = new CGFXModel();
 		System.out.println();
 		System.out.println(gfx.iconAt(0));
-		System.out.println(gfx.iconAt(1));
 		System.out.println(gfx.iconAt(50));
 		System.out.println();
 		System.out.println(gfx.normalBG);
@@ -110,7 +104,5 @@ public class CGFXModel
 		System.out.println("Button[9]:" + gfx.buttonAt(Icn.D0.id()));
 		System.out.println();
 		System.out.println("Width/height: " + gfx.bWidth() + "/" + gfx.bHeight());
-		
-
 	}
 }

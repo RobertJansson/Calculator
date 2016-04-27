@@ -48,7 +48,7 @@ public class CViewer extends JFrame implements ActionListener
 		this.getContentPane().setPreferredSize(new Dimension(w, h)); // Request window size
 		this.getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		
-		this.add(Box.createRigidArea(new Dimension(0, 10)));
+//		this.add(Box.createRigidArea(new Dimension(0, 10)));
 		
 		layeredPane = new JLayeredPane();
 		layeredPane.setPreferredSize(new Dimension(w, h));

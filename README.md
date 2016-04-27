@@ -9,9 +9,9 @@ The brain of the Calculator
 <p><b>
 CGFXModel.java
 </b><br>
-Graphics model that read all button icons into an array.
-Also read the normal- and the advanced backgrounds.
-The model also prepare the images as Icons so that the Viewer easily can present them.
+Model that load the graphics package, convert that to icons and store those in as ImageIcons in an array.
+Load the normal- and the advanced background images and also prepare them as ImageIcons so they are ready for the CViewer as Swing components.
+The model also compose all buttons with ImageIcons so they are ready for the Viewer. There are getter methods for everything in the Controller.
 
 <p><b>
 CViewer.java
@@ -21,9 +21,4 @@ Viewer for the calculator. Has the action listeners and action handlers today, b
 <p><b>
 Icn.java
 </b><br>
-Enumeration for matching buttons with array.index
-
-<p><b>
-IconMAP.java
-</b><br>
-Wasn't sure if enumeration would cut it and as it did my map is really obsolete and should be removed.
+Enumeration index for matching icons and buttons with array-indexes. It is in line with the text file that is the in-data to produce the graphics package so this file should never be changed, just extended.
