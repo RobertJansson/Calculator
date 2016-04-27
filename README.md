@@ -1,10 +1,10 @@
 # Calculator
-UU Prog2 - Lab 4
+Uppsala Universitet P2 - Lab 4
 
 <p><b>
 CController.java
 </b><br>
-The brain of the Calculator
+The spider in the web with control issues.
 
 <p><b>
 CGFXModel.java
@@ -17,6 +17,12 @@ The model also compose all buttons with ImageIcons so they are ready for the Vie
 CViewer.java
 </b><br>
 Viewer for the calculator. Has the action listeners and action handlers today, but the handlers will be moved to the Controller later.
+
+<p><b>
+CBrain.java
+</b><br>
+The smart little brain of the Calculator (that compute math problems).
+It is using recursive descent but as the GUI is not ready for it yet I wait with upload and implementation.
 
 <p><b>
 Icn.java
