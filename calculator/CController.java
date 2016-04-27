@@ -1,5 +1,4 @@
 package calculator;
-
 import javax.swing.Icon;
 
 public class CController {
