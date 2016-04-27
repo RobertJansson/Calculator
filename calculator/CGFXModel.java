@@ -45,11 +45,12 @@ public class CGFXModel
 		return this.icon[index];
 	}
 
-	public BufferedImage normalBG(){
-		return this.normalBG;
+	// Prepare the Images as ImageIcons
+	public ImageIcon normalBG(){
+		return new ImageIcon(this.normalBG);
 	}
-	public BufferedImage advancedBG(){
-		return this.advancedBG;
+	public ImageIcon advancedBG(){
+		return new ImageIcon(this.advancedBG);
 	}
 
 	private void importGraphics(){

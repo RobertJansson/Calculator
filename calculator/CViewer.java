@@ -1,5 +1,6 @@
 package calculator;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -11,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -24,21 +26,19 @@ public class CViewer extends JFrame implements ActionListener
 
 	private static final boolean LOG = false;
 	private static final long serialVersionUID = 1L;
-	private BufferedImage imageBG;
 
 	private JLayeredPane layeredPane;
 
-	private JPanel background;		// -> layeredPane
-//	private JImage image;			// -> backDrop -> layeredPane
+	private JLabel background;		// -> layeredPane:0
 
-	private JPanel controlPanel;	// -> layeredPane
-	private JPanel displayPanel;	// -> controlPanel -> layeredPane
-	private JPanel buttonPanel;		// -> controlPanel -> layeredPane
+	private JPanel foreground;	// -> layeredPane
+	private JPanel displayPanel;	// -> foreground -> layeredPane
+	private JPanel buttonPanel;		// -> foreground -> layeredPane
 
-	// -> displayPanel -> controlPanel -> layeredPane
+	// -> displayPanel -> foreground -> layeredPane
 	private JLabel display;
 
-	// -> buttonPanel -> controlPanel -> layeredPane
+	// -> buttonPanel -> foreground -> layeredPane
 	private JButton bClear, bPlusMinus, bPercent, bComma;
 	private JButton bEqual, bPlus, bMinus, bMultiplication, bDivision;
 	private JButton b0, b1, b2, b3, b4, b5, b6, b7, b8, b9;
@@ -53,49 +53,49 @@ public class CViewer extends JFrame implements ActionListener
 	 * Require: CController
 	 * @param n is the number of measures
 	 */
-	public CViewer(BufferedImage imageBG) {
+	public CViewer(ImageIcon imageBG) {
 
 		super("Calculator"); 									// Set title by calling JFrame constructor
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	// Quit if window is closed
 		this.getContentPane().setPreferredSize(new Dimension(321, 362)); // Request window size: 321x362
-		// Create a CalculatorBrain
-//		pb = new U5_ProjectileBrain(n);
-
 		this.getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		
-//		layeredPane = new JLayeredPane();
+		this.add(Box.createRigidArea(new Dimension(0, 10)));
 		
-		background = new JPanel();
-        ImageIcon icon=new ImageIcon(imageBG);
-//        JFrame frame=new JFrame();
-        background.setLayout(new FlowLayout());
-//        frame.setSize(200,300);
-        JLabel lbl=new JLabel();
-        lbl.setIcon(icon);
-        background.add(lbl);
-        background.setVisible(true);
+		layeredPane = new JLayeredPane();
+		layeredPane.setPreferredSize(new Dimension(321, 362));
+		layeredPane.setBackground(new Color(0,0,0,0));;
+		
+		background=new JLabel();
+		background.setSize(321,362);
+		background.setIcon(imageBG);
+		background.setVisible(true);
 
-//		backDrop.add(imageBG);
-//		backDrop.setPreferredSize(new Dimension(321, 362));
+		foreground = new JPanel();
+		foreground.setLayout(new GridLayout(2, 0));
+		foreground.setSize(new Dimension(321, 362));
+		foreground.setBackground(new Color(0,0,0,0));;
 
-		controlPanel = new JPanel();
-//		controlPanel.setLayout(new GridLayout(2, 0));
-		controlPanel.setPreferredSize(new Dimension(321, 362));
-
-		// Set up the display panel
+		// displayPanel:
 		displayPanel = new JPanel();
 		displayPanel.setLayout(new GridLayout(1, 0));
-		displayPanel.setPreferredSize(new Dimension(321, 60));
+		displayPanel.setSize(new Dimension(310, 60));
+		displayPanel.setBackground(new Color(0,0,0,0));;
+		displayPanel.setToolTipText("This is the display");
+//		displayPanel.setBorder(BorderFactory.createTitledBorder(" "));
+
 		display = new JLabel("0");
 		display.setFont(new Font("Gil Sans",0,30));
 		display.setHorizontalAlignment(JLabel.RIGHT);
 		displayPanel.add(display);
-		displayPanel.setToolTipText("This is the display");
-		displayPanel.setBorder(BorderFactory.createTitledBorder("Display"));
+		foreground.add(displayPanel);
 		
+		// buttonPanel:
 		buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(5, 0));
-		buttonPanel.setPreferredSize(new Dimension(321, 302));
+		buttonPanel.setSize(new Dimension(321, 302));
+		buttonPanel.setBackground(new Color(0,0,0,0));;
+//		buttonPanel.setAlignmentX(JPanel.BOTTOM_ALIGNMENT);
 
 		bClear = new JButton(CController.getIcon(Icn.CLEAR));
 		bPlusMinus = new JButton(CController.getIcon(Icn.PLUSMINUS));
@@ -117,29 +117,46 @@ public class CViewer extends JFrame implements ActionListener
 		bMultiplication = new JButton(CController.getIcon(Icn.MULTIPLICATION));
 		bDivision = new JButton(CController.getIcon(Icn.DIVISION));
 
-		bClear.setPreferredSize(new Dimension(75, 55));
-		bPlusMinus.setPreferredSize(new Dimension(75, 55));
-		bPercent.setPreferredSize(new Dimension(75, 55));
-		bComma.setPreferredSize(new Dimension(75, 55));
+		bClear.setSize(new Dimension(75, 55));
+		bPlusMinus.setSize(new Dimension(75, 55));
+		bPercent.setSize(new Dimension(75, 55));
+		bComma.setSize(new Dimension(75, 55));
 		b0.setSize(new Dimension(150, 55));
-		b1.setPreferredSize(new Dimension(75, 55));
-		b2.setPreferredSize(new Dimension(75, 55));
-		b3.setPreferredSize(new Dimension(75, 55));
-		b4.setPreferredSize(new Dimension(75, 55));
-		b5.setPreferredSize(new Dimension(75, 55));
-		b6.setPreferredSize(new Dimension(75, 55));
-		b7.setPreferredSize(new Dimension(75, 55));
-		b8.setPreferredSize(new Dimension(75, 55));
-		b9.setPreferredSize(new Dimension(75, 55));
-		bEqual.setPreferredSize(new Dimension(75, 55));
-		bPlus.setPreferredSize(new Dimension(75, 55));
-		bMinus.setPreferredSize(new Dimension(75, 55));
-		bMultiplication.setPreferredSize(new Dimension(75, 55));
-		bDivision.setPreferredSize(new Dimension(75, 55));
+		b1.setSize(new Dimension(75, 55));
+		b2.setSize(new Dimension(75, 55));
+		b3.setSize(new Dimension(75, 55));
+		b4.setSize(new Dimension(75, 55));
+		b5.setSize(new Dimension(75, 55));
+		b6.setSize(new Dimension(75, 55));
+		b7.setSize(new Dimension(75, 55));
+		b8.setSize(new Dimension(75, 55));
+		b9.setSize(new Dimension(75, 55));
+		bEqual.setSize(new Dimension(75, 55));
+		bPlus.setSize(new Dimension(75, 55));
+		bMinus.setSize(new Dimension(75, 55));
+		bMultiplication.setSize(new Dimension(75, 55));
+		bDivision.setSize(new Dimension(75, 55));
 		
-//		b5.setBorder(BorderFactory.createEmptyBorder());
+		bClear.setBorder(BorderFactory.createEmptyBorder());
+		bPlusMinus.setBorder(BorderFactory.createEmptyBorder());
+		bPercent.setBorder(BorderFactory.createEmptyBorder());
+		bComma.setBorder(BorderFactory.createEmptyBorder());
+		b0.setBorder(BorderFactory.createEmptyBorder());
+		b1.setBorder(BorderFactory.createEmptyBorder());
+		b2.setBorder(BorderFactory.createEmptyBorder());
+		b3.setBorder(BorderFactory.createEmptyBorder());
+		b4.setBorder(BorderFactory.createEmptyBorder());
+		b5.setBorder(BorderFactory.createEmptyBorder());
+		b6.setBorder(BorderFactory.createEmptyBorder());
+		b7.setBorder(BorderFactory.createEmptyBorder());
+		b8.setBorder(BorderFactory.createEmptyBorder());
+		b9.setBorder(BorderFactory.createEmptyBorder());
+		bEqual.setBorder(BorderFactory.createEmptyBorder());
+		bPlus.setBorder(BorderFactory.createEmptyBorder());
+		bMinus.setBorder(BorderFactory.createEmptyBorder());
+		bMultiplication.setBorder(BorderFactory.createEmptyBorder());
+		bDivision.setBorder(BorderFactory.createEmptyBorder());
 
-		// Button panel
 		buttonPanel.add(bClear);
 		buttonPanel.add(bPlusMinus);
 		buttonPanel.add(bPercent);
@@ -156,9 +173,9 @@ public class CViewer extends JFrame implements ActionListener
 		buttonPanel.add(b2);
 		buttonPanel.add(b3);
 		buttonPanel.add(bPlus);
-		buttonPanel.add(b0);
 		buttonPanel.add(bComma);
 		buttonPanel.add(bEqual);
+		buttonPanel.add(b0,2,16);
 
 		bClear.setToolTipText("Clear");
 		bPlusMinus.setToolTipText("Plus/minus");
@@ -180,15 +197,18 @@ public class CViewer extends JFrame implements ActionListener
 		bPlus.setToolTipText("Comma");
 		bPlus.setToolTipText("Equal");
 
-		// Add panels to content pane
-		controlPanel.add(displayPanel);
-//		controlPanel.add(frame);
-		controlPanel.add(buttonPanel);
-		controlPanel.setVisible (true);
-		layeredPane.add(controlPanel);
-		layeredPane.add(background);
+		foreground.add(buttonPanel);
+
+		//	JLayeredPane.DEFAULT_LAYER
+		//	JLayeredPane.PALETTE_LAYER
+
+		layeredPane.add(background, JLayeredPane.DEFAULT_LAYER);
+//		layeredPane.add(foreground, JLayeredPane.PALETTE_LAYER);
+		layeredPane.add(displayPanel, JLayeredPane.PALETTE_LAYER);
+		layeredPane.add(buttonPanel, JLayeredPane.PALETTE_LAYER);
+//		layeredPane.moveToFront(foreground);
 		this.getContentPane().add(layeredPane);
-//		this.getContentPane().add(controlPanel);
+
 
 /*		
 layeredPane = new JLayeredPane();
