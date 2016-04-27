@@ -1,13 +1,14 @@
 package calculator;
 
-import java.awt.Image;
-import java.awt.image.BufferedImage;
+import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 
 public class CGFXModel
 {
@@ -17,40 +18,38 @@ public class CGFXModel
 	private static final String ICONS = PATH + "buttons/normal/frame-0000";
 	private static final int NUMBER_OF_ICONS = 52;
 
+	private JButton[] button;
 	private Icon[] icon;
+	private int bWidth;
+	private int bHeight;
 	private File file;
-	private BufferedImage normalBG;
-	private BufferedImage advancedBG;
+	private ImageIcon normalBG;
+	private ImageIcon advancedBG;
 
 	public CGFXModel() {
 		icon = new Icon[NUMBER_OF_ICONS];
+		button = new JButton[NUMBER_OF_ICONS];
 		importGraphics();
+		this.bWidth  = icon[0].getIconWidth();
+		this.bHeight = icon[0].getIconHeight();
+		setupButtons();
+	}
+	
+	public int bWidth()				{ return this.bWidth;		}
+	public int bHeight()			{ return this.bHeight;		}
+	public ImageIcon normalBG()		{ return this.normalBG; 	}
+	public ImageIcon advancedBG()	{ return this.advancedBG; 	}
+
+	public JButton buttonAt(int index){
+		if (index > NUMBER_OF_ICONS-1)
+			throw new RuntimeException("\nButton " + index + ": we only have button[i] 0-" + (NUMBER_OF_ICONS));
+		return this.button[index];
 	}
 
-	/**
-	 * Ritar ut bilden i bildobjektet 'picture'.
-	 */
-//	public void paintComponent(Graphics g) {
-//		BufferedImage picture;
-//		super.paintComponent(g);
-//		Graphics2D g2 = (Graphics2D) g;
-//		if (picture != null) {
-//			g2.drawImage(picture, null, 0, 0);
-//		}
-//	}
-	
 	public Icon iconAt(int index){
 		if (index > NUMBER_OF_ICONS-1)
-			throw new RuntimeException("\nIcon " + index + ": we only have " + (NUMBER_OF_ICONS-1) + " icons");
+			throw new RuntimeException("\nIcon " + index + ": we only have icon[i] 0-" + (NUMBER_OF_ICONS));
 		return this.icon[index];
-	}
-
-	// Prepare the Images as ImageIcons
-	public ImageIcon normalBG(){
-		return new ImageIcon(this.normalBG);
-	}
-	public ImageIcon advancedBG(){
-		return new ImageIcon(this.advancedBG);
 	}
 
 	private void importGraphics(){
@@ -65,23 +64,29 @@ public class CGFXModel
 
 			try {
 				icon[i] = new ImageIcon(ImageIO.read(file));
-
-				//			ViewerPanel panel = new ViewerPanel (img);
-				//			ViewerWindow win = new ViewerWindow ("Image Viewer", panel);
-				//			win.setVisible (true);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 		try {
 			file = new File(PATH + "BG_normal.png");	log(PATH + "BG_normal.png");
-			normalBG = ImageIO.read(file);
+			normalBG = new ImageIcon(ImageIO.read(file));
 
 			file = new File(PATH + "BG_advanced.png");	log(PATH + "BG_advanced.png");
-			advancedBG = ImageIO.read(file);
+			advancedBG = new ImageIcon(ImageIO.read(file));
 
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	private void setupButtons(){
+		for(int i=0; i < NUMBER_OF_ICONS; i++){
+			button[i] = new JButton(icon[i]);
+			button[i].setSize(new Dimension(bWidth, bHeight));
+			button[i].setBorder(BorderFactory.createEmptyBorder());
+//			buttonPanel.add(button[i]);
+//			button[i].addActionListener(this);
 		}
 	}
 
@@ -101,6 +106,11 @@ public class CGFXModel
 		System.out.println(gfx.advancedBG);
 		System.out.println();
 		System.out.println(Icn.XROOTY + " has id " + Icn.XROOTY.id());
+		System.out.println();
+		System.out.println("Button[9]:" + gfx.buttonAt(Icn.D0.id()));
+		System.out.println();
+		System.out.println("Width/height: " + gfx.bWidth() + "/" + gfx.bHeight());
+		
 
 	}
 }
