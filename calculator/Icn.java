@@ -66,7 +66,7 @@ public enum Icn{
 
     public static void main(String[] args) {
         if (args.length != 1) {
-            System.err.println("Usage: java IconEnum <index>");
+            System.err.println("Usage: java Icn <index>");
             System.exit(-1);
         }
     }

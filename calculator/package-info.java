@@ -1,8 +1,4 @@
 /**
- * 
- */
-/**
- * @author robban
- *
+ * @author robert@kvicktajm.se
  */
 package calculator;
