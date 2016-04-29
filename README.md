@@ -1,6 +1,8 @@
 # Calculator
 Uppsala Universitet P2 - Lab4
 
+Swing is so painful and produce very confusing and odd results to a GUI and you really have to fight to control it. As my great teachers saw this program they said they had seen enought and let me move on to use JavaFX instead. That strong MVC environment and workflow is really a blessing for Java.
+
 <p><b>
 CController.java
 </b><br>
