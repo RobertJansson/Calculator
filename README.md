@@ -1,5 +1,9 @@
 # Calculator
+<<<<<<< HEAD
 Uppsala Universitet P2 - Lab 4
+=======
+Uppsala Universitet P2 - Lab4
+>>>>>>> master
 
 <p><b>
 CController.java

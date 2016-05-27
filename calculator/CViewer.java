@@ -93,7 +93,7 @@ public class CViewer extends JFrame implements ActionListener
 		buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(5, 0));
 		buttonPanel.setSize(new Dimension(w, h-60));
-//		buttonPanel.setOpaque(true);
+//		buttonPanel.setOpaque(false);
 		buttonPanel.setBackground(new Color(0,0,0,0));;
 		// buttonPanel.setAlignmentX(JPanel.BOTTOM_ALIGNMENT);
 
@@ -139,12 +139,12 @@ public class CViewer extends JFrame implements ActionListener
 
 		foreground.add(display);
 		foreground.add(buttonPanel);
-//		foreground.setOpaque(true);
-		foreground.setBackground(new Color(0,0,0,0));
+		foreground.setOpaque(true);
+//		foreground.setBackground(new Color(0,0,0,0));
 
 
-//		layeredPane.add(background, JLayeredPane.DEFAULT_LAYER);
-		layeredPane.add(background, JLayeredPane.PALETTE_LAYER);
+		layeredPane.add(background, JLayeredPane.DEFAULT_LAYER);
+//		layeredPane.add(background, JLayeredPane.PALETTE_LAYER);
 //		layeredPane.add(foreground, JLayeredPane.PALETTE_LAYER);
 //		layeredPane.add(foreground, JLayeredPane.MODAL_LAYER);
 //		layeredPane.add(foreground, JLayeredPane.POPUP_LAYER);
