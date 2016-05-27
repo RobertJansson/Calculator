@@ -1,8 +1,6 @@
 # Calculator
 Uppsala Universitet P2 - Lab4 *** Abandoned project, see --> CalculatorFX ***
 
-Swing is so painful and produce very confusing and odd results so you really fight to control it. It is the reason why Java programs look awful. As my great teachers saw what I was trying to do they said I was beyond the lab and they let me move on to use JavaFX instead and I was commited. That strong MVC environment and workflow is a true blessing for Java. JavaFX introduce major changes in how to deal with a GUI and I found great use of this wonderful tutorial: http://code.makery.ch/library/javafx-8-tutorial/
-
 <p><b>
 CController.java
 </b><br>
